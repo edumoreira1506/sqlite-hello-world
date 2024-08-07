@@ -91,8 +91,8 @@ class MainActivity : AppCompatActivity() {
         )
 
         if (register.moveToNext()) {
-            binding.editTextName.setText(register.getString(1))
-            binding.editTextPhone.setText(register.getString(2))
+            binding.editTextName.setText(register.getString(Companion.NAME_COLUMN_INDEX))
+            binding.editTextPhone.setText(register.getString(Companion.PHONE_COLUMN_INDEX))
         } else {
             Toast.makeText(this, "Register not found", Toast.LENGTH_LONG).show()
         }
@@ -111,14 +111,20 @@ class MainActivity : AppCompatActivity() {
         val registersString = StringBuilder()
 
         while(registers.moveToNext()) {
-            registersString.append(registers.getInt(0))
+            registersString.append(registers.getInt(Companion.ID_COLUMN_INDEX))
             registersString.append("-")
-            registersString.append(registers.getInt(1))
+            registersString.append(registers.getInt(Companion.NAME_COLUMN_INDEX))
             registersString.append("-")
-            registersString.append(registers.getInt(2))
+            registersString.append(registers.getInt(Companion.PHONE_COLUMN_INDEX))
             registersString.append("\n")
         }
 
         Toast.makeText(this, registersString.toString(), Toast.LENGTH_LONG).show()
+    }
+
+    companion object {
+        private const val ID_COLUMN_INDEX = 0
+        private const val NAME_COLUMN_INDEX = 1
+        private const val PHONE_COLUMN_INDEX = 2
     }
 }
