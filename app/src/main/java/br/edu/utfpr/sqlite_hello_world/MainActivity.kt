@@ -1,15 +1,15 @@
 package br.edu.utfpr.sqlite_hello_world
 
-import android.content.ContentValues
-import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import br.edu.utfpr.sqlite_hello_world.database.DatabaseHandler
 import br.edu.utfpr.sqlite_hello_world.databinding.ActivityMainBinding
+import br.edu.utfpr.sqlite_hello_world.entity.Register
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
-    private lateinit var database: SQLiteDatabase
+    private lateinit var databaseHandler: DatabaseHandler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,12 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         setButtonListeners()
 
-        database = SQLiteDatabase.openOrCreateDatabase(
-            this.getDatabasePath("dbfile.sqlite"),
-            null
-        )
-
-        database.execSQL("CREATE TABLE IF NOT EXISTS registers (_id INTEGER PRIMARY KEY AUTOINCREMENT, display_name TEXT, phone TEXT)")
+        databaseHandler = DatabaseHandler(this)
     }
 
     private fun setButtonListeners() {
@@ -49,82 +44,55 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickSave() {
-        val newRegister = ContentValues()
-        newRegister.put("display_name", binding.editTextName.text.toString())
-        newRegister.put("phone", binding.editTextPhone.text.toString())
-
-        database.insert("registers", null, newRegister)
+        databaseHandler.insert(Register(
+            name =  binding.editTextName.text.toString(),
+            phone = binding.editTextPhone.text.toString(),
+            _id = 0
+        ))
 
         Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
     }
 
     private fun onClickEdit() {
-        val register = ContentValues()
-        register.put("display_name", binding.editTextName.text.toString())
-        register.put("phone", binding.editTextPhone.text.toString())
-
-        database.update(
-            "registers",
-            register,
-            "_id=${binding.editTextId.text}",
-            null
-        )
+        databaseHandler.update(Register(
+            name =  binding.editTextName.text.toString(),
+            phone = binding.editTextPhone.text.toString(),
+            _id = binding.editTextId.text.toString().toInt()
+        ))
 
         Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
     }
 
     private fun onClickRemove() {
-        database.delete("registers", "_id=${binding.editTextId.text}", null)
+        databaseHandler.delete(binding.editTextId.text.toString().toInt())
 
         Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
     }
 
     private fun onClickSearch() {
-        val register = database.query(
-            "registers",
-            null,
-            "_id=${binding.editTextId.text}",
-            null,
-            null,
-            null,
-            null
-        )
+        val register = databaseHandler.find(binding.editTextId.text.toString().toInt())
 
-        if (register.moveToNext()) {
-            binding.editTextName.setText(register.getString(Companion.NAME_COLUMN_INDEX))
-            binding.editTextPhone.setText(register.getString(Companion.PHONE_COLUMN_INDEX))
+        if (register != null) {
+            binding.editTextName.setText(register.name)
+            binding.editTextPhone.setText(register.phone)
         } else {
             Toast.makeText(this, "Register not found", Toast.LENGTH_LONG).show()
         }
     }
 
     private fun onClickList() {
-        val registers = database.query(
-            "registers",
-            null,
-            null,
-            null,
-            null,
-            null,
-            null
-        )
+        val registers = databaseHandler.list()
         val registersString = StringBuilder()
 
-        while(registers.moveToNext()) {
-            registersString.append(registers.getInt(Companion.ID_COLUMN_INDEX))
+        for (register in registers) {
+            registersString.append(register._id)
             registersString.append("-")
-            registersString.append(registers.getInt(Companion.NAME_COLUMN_INDEX))
+            registersString.append(register.name)
             registersString.append("-")
-            registersString.append(registers.getInt(Companion.PHONE_COLUMN_INDEX))
+            registersString.append(register.phone)
             registersString.append("\n")
         }
 
         Toast.makeText(this, registersString.toString(), Toast.LENGTH_LONG).show()
-    }
-
-    companion object {
-        private const val ID_COLUMN_INDEX = 0
-        private const val NAME_COLUMN_INDEX = 1
-        private const val PHONE_COLUMN_INDEX = 2
     }
 }
