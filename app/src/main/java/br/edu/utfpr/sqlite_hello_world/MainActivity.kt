@@ -1,7 +1,9 @@
 package br.edu.utfpr.sqlite_hello_world
 
+import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import br.edu.utfpr.sqlite_hello_world.databinding.ActivityMainBinding
 
@@ -47,17 +49,76 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickSave() {
+        val newRegister = ContentValues()
+        newRegister.put("display_name", binding.editTextName.text.toString())
+        newRegister.put("phone", binding.editTextPhone.text.toString())
+
+        database.insert("registers", null, newRegister)
+
+        Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
     }
 
     private fun onClickEdit() {
+        val register = ContentValues()
+        register.put("display_name", binding.editTextName.text.toString())
+        register.put("phone", binding.editTextPhone.text.toString())
+
+        database.update(
+            "registers",
+            register,
+            "_id=${binding.editTextId.text}",
+            null
+        )
+
+        Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
     }
 
     private fun onClickRemove() {
+        database.delete("registers", "_id=${binding.editTextId.text}", null)
+
+        Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
     }
 
     private fun onClickSearch() {
+        val register = database.query(
+            "registers",
+            null,
+            "_id=${binding.editTextId.text}",
+            null,
+            null,
+            null,
+            null
+        )
+
+        if (register.moveToNext()) {
+            binding.editTextName.setText(register.getString(1))
+            binding.editTextPhone.setText(register.getString(2))
+        } else {
+            Toast.makeText(this, "Register not found", Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun onClickList() {
+        val registers = database.query(
+            "registers",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        )
+        val registersString = StringBuilder()
+
+        while(registers.moveToNext()) {
+            registersString.append(registers.getInt(0))
+            registersString.append("-")
+            registersString.append(registers.getInt(1))
+            registersString.append("-")
+            registersString.append(registers.getInt(2))
+            registersString.append("\n")
+        }
+
+        Toast.makeText(this, registersString.toString(), Toast.LENGTH_LONG).show()
     }
 }
