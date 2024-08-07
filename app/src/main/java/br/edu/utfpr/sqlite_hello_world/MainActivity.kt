@@ -84,12 +84,12 @@ class MainActivity : AppCompatActivity() {
         val registers = databaseHandler.list()
         val registersString = StringBuilder()
 
-        for (register in registers) {
-            registersString.append(register._id)
+        registers.forEach {
+            registersString.append(it._id)
             registersString.append("-")
-            registersString.append(register.name)
+            registersString.append(it.name)
             registersString.append("-")
-            registersString.append(register.phone)
+            registersString.append(it.phone)
             registersString.append("\n")
         }
 
