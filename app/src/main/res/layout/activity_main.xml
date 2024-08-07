@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="ID:"
+        android:text="@string/id"
         app:layout_constraintBottom_toBottomOf="@+id/editTextId"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/editTextId" />
@@ -24,8 +24,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
+        android:hint="@string/id_for_edit_delete_and_search"
+        android:importantForAutofill="no"
         android:inputType="number"
-        android:text="ID"
+        android:text="@string/id"
         app:layout_constraintStart_toEndOf="@+id/textViewId"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +35,7 @@
         android:id="@+id/textViewName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name"
+        android:text="@string/name"
         app:layout_constraintBottom_toBottomOf="@+id/editTextName"
         app:layout_constraintStart_toStartOf="@+id/textViewId"
         app:layout_constraintTop_toTopOf="@+id/editTextName" />
@@ -45,8 +47,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
+        android:hint="@string/input_the_name"
         android:inputType="text"
-        android:text="Name"
+        android:text="@string/name"
+        android:autofillHints="name"
         app:layout_constraintStart_toEndOf="@+id/textViewName"
         app:layout_constraintTop_toBottomOf="@+id/editTextId" />
 
@@ -54,7 +58,7 @@
         android:id="@+id/textViewPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Phone"
+        android:text="@string/phone"
         app:layout_constraintBottom_toBottomOf="@+id/editTextPhone"
         app:layout_constraintStart_toStartOf="@+id/textViewName" />
 
@@ -65,7 +69,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
+        android:hint="@string/input_the_phone"
         android:inputType="phone"
+        android:autofillHints="phone"
         app:layout_constraintStart_toEndOf="@+id/textViewPhone"
         app:layout_constraintTop_toBottomOf="@+id/editTextName" />
 
@@ -74,7 +80,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Save"
+        android:text="@string/save"
         app:layout_constraintStart_toStartOf="@+id/textViewPhone"
         app:layout_constraintTop_toBottomOf="@+id/editTextPhone" />
 
@@ -83,7 +89,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Edit"
+        android:text="@string/edit"
         app:layout_constraintStart_toStartOf="@+id/buttonSave"
         app:layout_constraintTop_toBottomOf="@+id/buttonSave" />
 
@@ -92,7 +98,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Delete"
+        android:text="@string/delete"
         app:layout_constraintStart_toStartOf="@+id/buttonEdit"
         app:layout_constraintTop_toBottomOf="@+id/buttonEdit" />
 
@@ -101,7 +107,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Search"
+        android:text="@string/search"
         app:layout_constraintStart_toStartOf="@+id/buttonDelete"
         app:layout_constraintTop_toBottomOf="@+id/buttonDelete" />
 
@@ -110,7 +116,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="List"
+        android:text="@string/list"
         app:layout_constraintStart_toStartOf="@+id/buttonSearch"
         app:layout_constraintTop_toBottomOf="@+id/buttonSearch" />
 

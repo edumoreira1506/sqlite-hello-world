@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">sqlite-hello-world</string>
+    <string name="id">ID:</string>
+    <string name="name">Name</string>
+    <string name="phone">Phone</string>
+    <string name="save">Save</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="search">Search</string>
+    <string name="list">List</string>
+    <string name="id_for_edit_delete_and_search">ID for edit, delete and search</string>
+    <string name="input_the_name">Input the name</string>
+    <string name="input_the_phone">Input the phone</string>
 </resources>
