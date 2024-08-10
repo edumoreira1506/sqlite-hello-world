@@ -2,10 +2,9 @@ package br.edu.utfpr.sqlite_hello_world.database
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.widget.Toast
-import br.edu.utfpr.sqlite_hello_world.MainActivity
 import br.edu.utfpr.sqlite_hello_world.entity.Register
 
 class DatabaseHandler (context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -101,6 +100,21 @@ class DatabaseHandler (context: Context) : SQLiteOpenHelper(context, DATABASE_NA
                 phone = rawRegisters.getString(PHONE_COLUMN_INDEX)
             ))
         }
+
+        return registers
+    }
+
+    fun cursorList(): Cursor {
+        val database = this.writableDatabase
+        val registers = database.query(
+            "registers",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+        )
 
         return registers
     }

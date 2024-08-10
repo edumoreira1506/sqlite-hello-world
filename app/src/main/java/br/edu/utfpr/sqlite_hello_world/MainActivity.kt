@@ -1,5 +1,6 @@
 package br.edu.utfpr.sqlite_hello_world
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -81,18 +82,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickList() {
-        val registers = databaseHandler.list()
-        val registersString = StringBuilder()
-
-        registers.forEach {
-            registersString.append(it._id)
-            registersString.append("-")
-            registersString.append(it.name)
-            registersString.append("-")
-            registersString.append(it.phone)
-            registersString.append("\n")
-        }
-
-        Toast.makeText(this, registersString.toString(), Toast.LENGTH_LONG).show()
+//        val registers = databaseHandler.list()
+//        val registersString = StringBuilder()
+//
+//        registers.forEach {
+//            registersString.append(it._id)
+//            registersString.append("-")
+//            registersString.append(it.name)
+//            registersString.append("-")
+//            registersString.append(it.phone)
+//            registersString.append("\n")
+//        }
+//
+//        Toast.makeText(this, registersString.toString(), Toast.LENGTH_LONG).show()
+        val intent = Intent(this, ListActivity::class.java)
+        startActivity(intent)
     }
 }
