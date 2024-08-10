@@ -25,10 +25,10 @@ class ListActivity : AppCompatActivity() {
         val registers = database.cursorList()
         val adapter = SimpleCursorAdapter(
             this,
-            android.R.layout.simple_list_item_1,
+            android.R.layout.simple_list_item_2,
             registers,
-            arrayOf("display_name"),
-            intArrayOf(android.R.id.text1),
+            arrayOf("display_name", "phone"),
+            intArrayOf(android.R.id.text1, android.R.id.text2),
             0
         )
 
