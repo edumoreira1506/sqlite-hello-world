@@ -29,10 +29,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setButtonListeners() {
-        binding.buttonSave.setOnClickListener {
-            onClickSave()
-        }
-
         binding.buttonEdit.setOnClickListener {
             onClickEdit()
         }
@@ -44,36 +40,36 @@ class MainActivity : AppCompatActivity() {
         binding.buttonSearch.setOnClickListener {
             onClickSearch()
         }
-
-        binding.buttonList.setOnClickListener {
-            onClickList()
-        }
-    }
-
-    private fun onClickSave() {
-        databaseHandler.insert(Register(
-            name =  binding.editTextName.text.toString(),
-            phone = binding.editTextPhone.text.toString(),
-            _id = 0
-        ))
-
-        Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
     }
 
     private fun onClickEdit() {
-        databaseHandler.update(Register(
-            name =  binding.editTextName.text.toString(),
-            phone = binding.editTextPhone.text.toString(),
-            _id = binding.editTextId.text.toString().toInt()
-        ))
+        if (binding.editTextId.text.isEmpty()) {
+            databaseHandler.insert(Register(
+                name =  binding.editTextName.text.toString(),
+                phone = binding.editTextPhone.text.toString(),
+                _id = 0
+            ))
 
-        Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
+        } else {
+            databaseHandler.update(Register(
+                name =  binding.editTextName.text.toString(),
+                phone = binding.editTextPhone.text.toString(),
+                _id = binding.editTextId.text.toString().toInt()
+            ))
+
+            Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
+        }
+
+        finish()
     }
 
     private fun onClickRemove() {
         databaseHandler.delete(binding.editTextId.text.toString().toInt())
 
         Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
+
+        finish()
     }
 
     private fun onClickSearch() {

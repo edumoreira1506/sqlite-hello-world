@@ -1,5 +1,6 @@
 package br.edu.utfpr.sqlite_hello_world
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.SimpleCursorAdapter
@@ -23,6 +24,20 @@ class ListActivity : AppCompatActivity() {
 
         database = DatabaseHandler(this)
 
+        binding.floatingActionButton.setOnClickListener {
+            onAddCLick()
+        }
+
+        this.updateList()
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        this.updateList()
+    }
+
+    private fun updateList() {
         val registers = database.cursorList()
         val adapter = CustomAdapter(
             this,
@@ -30,5 +45,10 @@ class ListActivity : AppCompatActivity() {
         )
 
         binding.mainListView.adapter = adapter
+    }
+
+    private fun onAddCLick() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 }
