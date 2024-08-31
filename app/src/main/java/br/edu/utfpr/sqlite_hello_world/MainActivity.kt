@@ -3,6 +3,7 @@ package br.edu.utfpr.sqlite_hello_world
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -26,6 +27,9 @@ class MainActivity : AppCompatActivity() {
             binding.editTextId.setText(intent.getIntExtra("id", 0).toString())
             binding.editTextPhone.setText(intent.getStringExtra("phone"))
             binding.editTextName.setText(intent.getStringExtra("name"))
+        } else {
+            binding.buttonDelete.visibility = View.GONE
+            binding.buttonSearch.visibility = View.GONE
         }
 
         databaseHandler = DatabaseHandler(this)
