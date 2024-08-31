@@ -1,8 +1,11 @@
 package br.edu.utfpr.sqlite_hello_world
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import br.edu.utfpr.sqlite_hello_world.database.DatabaseHandler
 import br.edu.utfpr.sqlite_hello_world.databinding.ActivityMainBinding
@@ -73,14 +76,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onClickSearch() {
-        val register = databaseHandler.find(binding.editTextId.text.toString().toInt())
+        val builder = AlertDialog.Builder(this)
 
-        if (register != null) {
-            binding.editTextName.setText(register.name)
-            binding.editTextPhone.setText(register.phone)
-        } else {
-            Toast.makeText(this, "Register not found", Toast.LENGTH_LONG).show()
-        }
+        val editCodeSearch = EditText(this)
+
+        builder.setTitle("Type the ID")
+        builder.setView(editCodeSearch)
+        builder.setCancelable(false)
+        builder.setNegativeButton("Close", null)
+        builder.setPositiveButton("Search", DialogInterface.OnClickListener {
+            dialog, i ->
+                val register = databaseHandler.find(editCodeSearch.text.toString().toInt())
+
+                if (register != null) {
+                    binding.editTextId.setText(editCodeSearch.text.toString())
+                    binding.editTextName.setText(register.name)
+                    binding.editTextPhone.setText(register.phone)
+                } else {
+                    Toast.makeText(this, "Register not found", Toast.LENGTH_LONG).show()
+                }
+        })
+
+        builder.show()
+
+
     }
 
     private fun onClickList() {
