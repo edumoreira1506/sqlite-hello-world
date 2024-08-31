@@ -12,6 +12,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import br.edu.utfpr.sqlite_hello_world.MainActivity
 import br.edu.utfpr.sqlite_hello_world.R
+import br.edu.utfpr.sqlite_hello_world.database.DatabaseHandler
 import br.edu.utfpr.sqlite_hello_world.entity.Register
 
 class CustomAdapter(val context : Context, val cursor: Cursor) : BaseAdapter() {
@@ -22,9 +23,9 @@ class CustomAdapter(val context : Context, val cursor: Cursor) : BaseAdapter() {
     override fun getItem(position: Int): Register {
         cursor.moveToPosition(position)
         val register = Register(
-            cursor.getInt(0),
-            cursor.getString(1),
-            cursor.getString(2),
+            cursor.getInt(DatabaseHandler.ID_COLUMN_INDEX),
+            cursor.getString(DatabaseHandler.NAME_COLUMN_INDEX),
+            cursor.getString(DatabaseHandler.PHONE_COLUMN_INDEX),
         )
 
         return register
@@ -45,17 +46,17 @@ class CustomAdapter(val context : Context, val cursor: Cursor) : BaseAdapter() {
 
         cursor.moveToPosition(position)
 
-        textViewNameElementList.text = cursor.getString(1)
-        textViewPhoneElementList.text = cursor.getString(2)
+        textViewNameElementList.text = cursor.getString(DatabaseHandler.NAME_COLUMN_INDEX)
+        textViewPhoneElementList.text = cursor.getString(DatabaseHandler.PHONE_COLUMN_INDEX)
 
         editButtonElementList.setOnClickListener {
             cursor.moveToPosition(position)
 
             val intent = Intent(context, MainActivity::class.java)
 
-            intent.putExtra("id",  cursor.getInt(0))
-            intent.putExtra("name", cursor.getString(1))
-            intent.putExtra("phone", cursor.getString(2))
+            intent.putExtra("id",  cursor.getInt(DatabaseHandler.ID_COLUMN_INDEX))
+            intent.putExtra("name", cursor.getString(DatabaseHandler.NAME_COLUMN_INDEX))
+            intent.putExtra("phone", cursor.getString(DatabaseHandler.PHONE_COLUMN_INDEX))
 
             context.startActivity(intent)
         }

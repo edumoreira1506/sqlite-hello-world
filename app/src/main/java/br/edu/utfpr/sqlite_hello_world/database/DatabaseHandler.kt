@@ -21,9 +21,9 @@ class DatabaseHandler (context: Context) : SQLiteOpenHelper(context, DATABASE_NA
         private const val DATABASE_NAME = "dbfile.sqlite"
         private const val DATABASE_VERSION = 1
         private const val TABLE_NAME = "registers"
-        private const val ID_COLUMN_INDEX = 0
-        private const val NAME_COLUMN_INDEX = 1
-        private const val PHONE_COLUMN_INDEX = 2
+        public const val ID_COLUMN_INDEX = 0
+        public const val NAME_COLUMN_INDEX = 1
+        public const val PHONE_COLUMN_INDEX = 2
     }
 
     fun insert(register: Register) {
