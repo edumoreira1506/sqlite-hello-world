@@ -35,4 +35,14 @@
         app:layout_constraintStart_toStartOf="@+id/textViewNameElementList"
         app:layout_constraintTop_toBottomOf="@+id/textViewNameElementList"
         tools:text="Testing aaa" />
+
+    <ImageButton
+        android:id="@+id/editButtonElementList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewPhoneElementList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewNameElementList"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
 </androidx.constraintlayout.widget.ConstraintLayout>

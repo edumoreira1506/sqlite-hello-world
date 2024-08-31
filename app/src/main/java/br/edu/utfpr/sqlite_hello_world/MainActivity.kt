@@ -19,6 +19,12 @@ class MainActivity : AppCompatActivity() {
 
         setButtonListeners()
 
+        if (intent.getIntExtra("id", 0) != 0) {
+            binding.editTextId.setText(intent.getIntExtra("id", 0).toString())
+            binding.editTextPhone.setText(intent.getStringExtra("phone"))
+            binding.editTextName.setText(intent.getStringExtra("name"))
+        }
+
         databaseHandler = DatabaseHandler(this)
     }
 
